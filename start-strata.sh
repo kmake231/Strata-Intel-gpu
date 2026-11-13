@@ -1,5 +1,5 @@
 #!/bin/sh
-# Start the Intel Arc server from this folder. No machine path is written here.
+# Start the Intel Arc server from this folder.
 cd "$(CDPATH= cd -- "$(dirname "$0")" && pwd)" || exit 1
 
 if [ ! -x .venv/bin/python ]; then
