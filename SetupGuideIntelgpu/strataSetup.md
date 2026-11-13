@@ -25,7 +25,7 @@ On this amount of memory, Gyro-S is the Qwen3.8-Flash-Next size that fits. Its e
 
 Published speeds of about 30 tokens/s, or prompt speeds near 900 tokens/s, come from an NVIDIA 8 GB laptop. On an Arc A750 the card holds a few hundred experts and the CPU does the rest. A maintainer measurement on an A750 was about 16 tokens/s writing, on a different CPU with 62 GB of RAM. Treat that as a reference, not a promise for this PC.
 
-A phone on the same Wi-Fi uses the local network address. Cursor’s base URL has to be a public address. A typical home PC has no public IP. When you have none, use a Cloudflare quick tunnel (step 10). Steps 10 and 11 are optional and only for Cursor. Do not put an API key, a tunnel address, a home-folder path, or a disk label that identifies you into a public copy of this note.
+A phone on the same Wi-Fi uses the local network address. Cursor’s base URL has to be a public address. A typical home PC has no public IP. When you have none, use a Cloudflare quick tunnel (step 10). Steps 10 and 11 are optional and only for Cursor.
 
 ## Where the files go
 
@@ -218,7 +218,7 @@ strata launch --backend intel --family gyro --model Gyro-S \
   --access lan --restart --yes --no-tui
 ```
 
-Strata prints two ready addresses: one for this computer, and one for the network. It also creates an API key and shows only a masked value. Read the full key on this computer with `strata launch --show-key`. Do not put the key, or the printed network address, in a public copy of this note.
+Strata prints two ready addresses: one for this computer, and one for the network. It also creates an API key and shows only a masked value. Read the full key on this computer with `strata launch --show-key`.
 
 On the other device:
 
@@ -265,7 +265,7 @@ strata launch --backend intel --family gyro --model Gyro-S \
   --access cloudflare --restart --yes --no-tui
 ```
 
-When it is ready, the log prints a line like `https://something.trycloudflare.com/v1`. That address is different every time you start a quick tunnel. Copy it from your own terminal. Do not publish it.
+When it is ready, the log prints a line like `https://something.trycloudflare.com/v1`. That address is different every time you start a quick tunnel. Copy it from your own terminal.
 
 Check it from any network:
 
@@ -340,11 +340,11 @@ Strata’s A750 notes for Gyro leave that table on the SSD and use a 300 MiB res
 - Level Zero is 1.34.0 and the compute runtime is 26.40. `clinfo` sees the Arc A750.
 - The server is answering on this computer and on the local network. `/health` is `ok`, the model is loaded, the context is 32K, and pictures are off.
 - An API key is required for `/v1`. A phone on the same Wi-Fi opened the page.
-- Cursor’s chat answered through a Cloudflare quick tunnel after `cloudflared` was installed and **Use OpenAI API Key** was on. The tunnel address and the key stay off this page. A new computer must install `cloudflared` first (step 10).
+- Cursor’s chat answered through a Cloudflare quick tunnel after `cloudflared` was installed and **Use OpenAI API Key** was on. A new computer must install `cloudflared` first (step 10).
 
 ## Useful CMD
 
-Run these from a terminal where `strata` is on `PATH`. `strata launch --show-key` prints the real key. Do not paste that output into a public note, a chat, or a screenshot.
+Run these from a terminal where `strata` is on `PATH`. `strata launch --show-key` prints the real key.
 
 | Command | What it does |
 | --- | --- |
@@ -355,7 +355,7 @@ Run these from a terminal where `strata` is on `PATH`. `strata launch --show-key
 | `strata launch --show-key` | Print the API key for the running server. |
 | `strata launch --stop` | Stop the server and unload the model. |
 | `strata logs --follow` | Follow the engine log until you press Ctrl-C. |
-| `strata connect` | List app connections (OpenAI-style and Anthropic-style). |
+| `strata connect` | List app connections (OpenAI-style and Anthropic-style). OpenClaw, OpenCode, and the others are in [strataAgents.md](strataAgents.md). |
 | `strata update --check` | See if a newer Terminal or engine is published. It does not install it. |
 | `cloudflared --version` | See if the tunnel program is installed. Strata does not install it. |
 

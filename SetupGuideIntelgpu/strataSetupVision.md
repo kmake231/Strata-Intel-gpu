@@ -4,7 +4,7 @@ This is one path for one computer: Ubuntu 24.04, 30 GB of RAM, and an Intel Arc 
 
 The `curl` installer and `strata launch` do not do this. They install the released Intel package, and that package has no picture reader. `strata launch --vision on` leaves pictures off. Pictures need the source engine in Docker and `strata-vision`, which `./setup.sh --backend sycl` compiles. Do not install the Terminal first and then switch. Follow this page from the top.
 
-Strata’s own page for the source build is [Intel Arc from source](https://github.com/Niko1221/Strata/blob/main/docs/INTEL.md). Do not put an API key, a tunnel address, a home-folder path, or a disk label into a public copy of this note.
+Strata’s own page for the source build is [Intel Arc from source](https://github.com/Niko1221/Strata/blob/main/docs/INTEL.md).
 
 On an 8 GB Arc the picture reader runs on the CPU. A maintainer measurement on an A750, with a different model size, was about 1.7 seconds per picture. This PC has not timed a picture. The two chats below are text.
 
@@ -223,7 +223,7 @@ Stop the server first. Closing the terminal that is running `./run-gyro-gyro-s.s
 "api_key": "choose-a-long-secret"
 ```
 
-Pick the secret yourself. Do not publish it, and do not put the printed network address in a public copy of this note. The run script does not take `--host`. The server reads these two lines from the JSON. `./setup.sh` already finished, so do not run it again for this. A second setup can write `--ple-io ram` back, and step 8 then has to be done again.
+Pick the secret yourself. The run script does not take `--host`. The server reads these two lines from the JSON. `./setup.sh` already finished, so do not run it again for this. A second setup can write `--ple-io ram` back, and step 8 then has to be done again.
 
 Start it the same way:
 
@@ -274,7 +274,7 @@ In a second terminal, leave this running:
 cloudflared tunnel --url http://127.0.0.1:8080
 ```
 
-`cloudflared` prints an `https://….trycloudflare.com` address. That name is different every time you start a quick tunnel. Copy it from your own terminal. Do not publish it. Closing this terminal closes the public address. Closing the model terminal stops the model.
+`cloudflared` prints an `https://….trycloudflare.com` address. That name is different every time you start a quick tunnel. Copy it from your own terminal. Closing this terminal closes the public address. Closing the model terminal stops the model.
 
 Check it from any network:
 

@@ -4,7 +4,7 @@ This note is for the same computer as the Terminal setup: Ubuntu 24.04, 30 GB of
 
 The released Intel engine has no picture reader. `strata launch --vision on` leaves pictures off. Pictures need a source build: Docker, an engine compiled in that image, and `./setup.sh --backend sycl`. That setup compiles `strata-vision` and downloads the picture file. It starts its own server. It does not add a reader to the Terminal process.
 
-Strata’s own page for this build is [Intel Arc from source](https://github.com/Niko1221/Strata/blob/main/docs/INTEL.md). Do not put an API key, a tunnel address, a home-folder path, or a disk label into a public copy of this note.
+Strata’s own page for this build is [Intel Arc from source](https://github.com/Niko1221/Strata/blob/main/docs/INTEL.md).
 
 On an 8 GB Arc the reader runs on the CPU. A maintainer measurement on an A750, with a different model size, was about 1.7 seconds per picture. That number is not a measurement of Gyro-S on this PC.
 
