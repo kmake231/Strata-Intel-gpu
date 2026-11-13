@@ -141,7 +141,9 @@ It writes `engine-sycl/strata-vision` and `run-gyro-gyro-s.sh`. On this PC the s
 ready: http://127.0.0.1:8080/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 32768 tokens, images on)
 ```
 
-Experts loaded 24.02 GiB in about 63 seconds. The card cached 1,799 of them, 1.76 GiB of video memory. Drafting stayed off. Leave the terminal open. Closing it stops the model.
+Experts loaded 24.02 GiB in about 63 seconds. The card cached 1,799 of them, 1.76 GiB of video memory. Drafting stayed off.
+
+Start it with `./start-strata.sh`. The command returns, and the terminal can close. Progress lines (reading the prompt, thinking, answering) go to `logs/strata-server.log`. Watch them with `./start-strata.sh --follow`. `./start-strata.sh --stop` stops the server. `strata-gyro-gyro-s.log` keeps one finished line per request. `./run-gyro-gyro-s.sh` is the script setup writes, and that one still stops when its terminal closes.
 
 `--vision gpu` compiles a second program, `strata-vision-sycl`, and needs Intel’s oneAPI compilers installed on the PC. An 8 GB Arc is not the card that setup uses for that reader. Leave the flag off.
 
@@ -184,7 +186,7 @@ The 2 TB disk can be unplugged from the file manager while the system-disk folde
 
 ### The engine exits with code 137 while locking the n-gram table
 
-Setup printed `1024 GB of RAM` and wrote `--ple-io ram`. This PC has 30 GB. Docker is allowed to lock that whole table, about 27 GB, and the kernel then kills `strata`. Exit 137 is that kill. Remove `--ple-io ram` from both argument lists in `strata-gyro-gyro-s.json` and run `./run-gyro-gyro-s.sh` again. The table stays on the SSD.
+Setup printed `1024 GB of RAM` and wrote `--ple-io ram`. This PC has 30 GB. Docker is allowed to lock that whole table, about 27 GB, and the kernel then kills `strata`. Exit 137 is that kill. Remove `--ple-io ram` from both argument lists in `strata-gyro-gyro-s.json` and run `./start-strata.sh` again. The table stays on the SSD.
 
 ### `cd: /work/Strata: No such file or directory`
 

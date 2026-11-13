@@ -190,10 +190,14 @@ One copy is in `args`. The other is in `args_written`. The table then stays on t
 Close other heavy programs. Gyro-S still puts about 24 GB of experts in RAM.
 
 ```sh
-./run-gyro-gyro-s.sh
+./start-strata.sh
 ```
 
-Leave that terminal open. Closing it stops the model. On this PC the ready line was:
+The command returns, and the terminal can close. The server keeps running. `./run-gyro-gyro-s.sh` is the script setup writes, and that one still stops when its terminal closes.
+
+While a request runs, a line is written about once a second (reading the prompt, thinking, answering, and a done line) to `logs/strata-server.log`. Watch it with `./start-strata.sh --follow`. Ctrl+C stops the watch and leaves the server running. `./start-strata.sh --log` prints the last 40 lines. `./start-strata.sh --stop` stops the server. The engine’s own file, `strata-gyro-gyro-s.log`, keeps one finished line per request.
+
+On this PC the ready line was:
 
 ```text
 ready: http://127.0.0.1:8080/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 32768 tokens, images on)
@@ -210,13 +214,13 @@ Two text chats on this PC, after that start:
 
 Open `http://127.0.0.1:8080/` in a browser on this PC and attach a picture there. That address is this computer only. A phone on the same Wi-Fi is step 10. Cursor is steps 11 and 12.
 
-`strata launch --access lan` and `strata launch --access cloudflare` start the released package. That package has pictures off. The picture server is `./run-gyro-gyro-s.sh`. Sharing it means two lines in `strata-gyro-gyro-s.json`, then the same start script again.
+`strata launch --access lan` and `strata launch --access cloudflare` start the released package. That package has pictures off. The picture server is `./start-strata.sh`. Sharing it means two lines in `strata-gyro-gyro-s.json`, then `./start-strata.sh --stop` and `./start-strata.sh` again.
 
 ## 10. Let another device on the same network use it
 
 This step is optional. Skip it if the page on this PC is enough.
 
-Stop the server first. Closing the terminal that is running `./run-gyro-gyro-s.sh` stops it. In `strata-gyro-gyro-s.json`, next to `"port"`, add:
+Stop the server first: `./start-strata.sh --stop`. A server started with `./run-gyro-gyro-s.sh` stops when that terminal closes. In `strata-gyro-gyro-s.json`, next to `"port"`, add:
 
 ```json
 "host": "0.0.0.0",
@@ -228,7 +232,7 @@ Pick the secret yourself. The run script does not take `--host`. The server read
 Start it the same way:
 
 ```sh
-./run-gyro-gyro-s.sh
+./start-strata.sh
 ```
 
 The log prints this PC’s addresses as well as `127.0.0.1`. On the other device:
@@ -249,7 +253,7 @@ Cursor’s base URL has to be a public address. `127.0.0.1` and a LAN address su
 
 Skip this step if this PC already has a public IP you can put in Cursor, or if you only want the web page on your own Wi-Fi. A typical home PC has no public IP. Cloudflare is the way to get a public address when you do not have one. It is not a required part of Strata, and `./setup.sh` does not start a tunnel.
 
-The picture server stays on `127.0.0.1` for the tunnel. Set `"api_key"` as in step 10 before you open it. `"host"` can stay off when you do not want the Wi-Fi page. Restart `./run-gyro-gyro-s.sh` after the JSON change, and leave that terminal open.
+The picture server stays on `127.0.0.1` for the tunnel. Set `"api_key"` as in step 10 before you open it. `"host"` can stay off when you do not want the Wi-Fi page. After the JSON change, run `./start-strata.sh --stop` and then `./start-strata.sh`. The terminal can close.
 
 Strata does not download the tunnel program. A new computer does not have it. Check:
 
@@ -316,7 +320,7 @@ On this PC that short reply was checked against the Terminal server, after its o
 - The user can open the Arc device, and Level Zero is 1.34.0. `clinfo` sees the A750.
 - The source checkout has `build-sycl/strata` and `engine-sycl/strata-vision`.
 - Gyro-S, the picture file, the pack, and the draft layer are on the 2 TB disk.
-- `run-gyro-gyro-s.sh` is in the checkout. The n-gram table is left on the SSD.
+- `./start-strata.sh` starts the server and returns. Progress lines go to `logs/strata-server.log`. The engine log is `strata-gyro-gyro-s.log`. The n-gram table is left on the SSD.
 - The server answered on this PC with images on. Two text chats wrote at 9.4 and 10.6 tokens/s. A picture has not been timed on this PC.
 - LAN and a Cloudflare tunnel are steps 10 and 11. They were not started for this picture server. The phone and the Cursor reply on this PC were the Terminal server.
 
@@ -340,7 +344,7 @@ The 2 TB disk was not mounted, or `$MODEL_DIR` is the empty folder on the system
 
 ### `cd: /work/Strata: No such file or directory`
 
-`STRATA_SYCL_ROOT=/` is in use, and `sycl/serve/strata-sycl.sh` still enters only `/work/Strata`. Apply the three-line change in step 7, then run `./run-gyro-gyro-s.sh` again.
+`STRATA_SYCL_ROOT=/` is in use, and `sycl/serve/strata-sycl.sh` still enters only `/work/Strata`. Apply the three-line change in step 7, then run `./start-strata.sh` again.
 
 ### Exit code 137 while the log says the n-gram table was locked
 
@@ -348,7 +352,7 @@ The 2 TB disk was not mounted, or `$MODEL_DIR` is the empty folder on the system
 
 ### `strata launch --vision on` still says there is no picture reader
 
-That command is the released package. The picture server from this page is `./run-gyro-gyro-s.sh`.
+That command is the released package. The picture server from this page is `./start-strata.sh`.
 
 ### `strata launch --access lan` or `--access cloudflare` comes up with pictures off
 

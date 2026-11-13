@@ -6,6 +6,33 @@ The chat page on port 8080 is not an agent. It does not browse, and it does not 
 
 Start the server first. The agent only talks to a server that is already answering.
 
+## Keep the server running after the terminal closes
+
+From the checkout:
+
+```sh
+./start-strata.sh
+```
+
+The command returns. The terminal can close. The server keeps answering on port 8080. The model still takes a few minutes to load the first time after a start.
+
+While a request runs, the server writes a line about once a second: reading the prompt, thinking, answering, and a done line. Those lines go to `logs/strata-server.log` in the checkout.
+
+```sh
+./start-strata.sh --follow
+./start-strata.sh --log
+./start-strata.sh --status
+./start-strata.sh --stop
+```
+
+`--follow` prints the progress log and keeps printing new lines. Ctrl+C stops that watch. The server keeps running. `--log` prints the last 40 lines. `--status` says whether it is running. `--stop` stops it. `--foreground` stays in this terminal, and closing that terminal stops the server.
+
+The engine writes a second file, `strata-gyro-gyro-s.log`, in the checkout. Each finished request adds one line there, with the token counts and the expert-cache hit rate. The once-a-second lines are in `logs/strata-server.log`.
+
+`./run-gyro-gyro-s.sh` still stops when its terminal closes. Stop that one with Ctrl+C, then start with `./start-strata.sh`.
+
+OpenClaw can stay up while Strata stops and starts. It already calls `http://127.0.0.1:8080/v1` with the key in `strata-gyro-gyro-s.json`. Wait until the server is answering, then send the next message.
+
 ## OpenClaw
 
 OpenClaw is the agent to set up first on this PC. Its web page can be opened from a phone on the same Wi-Fi. The copy running here is **2026.11.3**. The Terminal text was checked against OpenClaw 2026.10.4.
