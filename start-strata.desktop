@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Start Strata
+Comment=Start the Intel Arc server in this folder
+Terminal=true
+Exec=sh -c 'cd "$(dirname "$1")" && exec ./start-strata.sh' -- %k
+Categories=Utility;
